@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Checkout</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap for Responsive Design only -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="{%static 'polls/checkout-style.css'%}">
+
+    <!-- Linking the icon library used for the hamburger menu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Linking the icon library used for the cart button -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script>
+        /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+    </script>
+</head>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="#">Night Owl</a>
+        <div class="float-right">
+                <a href="#"><i class="fa fa-shopping-cart"> Cart</i></a>
+        </div>
+        
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div class="container-fluid text-center">
+      <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+              <div class="containerr" style="text-align: center">
+                <hr>
+              </div>
+
+              <h3>Total Cost = Rs. {{ total }}</h3>
+
+              <form action="{% url 'polls:orderplaced' nc_id total %}" method="post">
+                  {% csrf_token %}
+                    <div class="form-group">
+                      <label for="phno">Phone Number</label>
+                      <input type="text" class="form-control" name="ph_no" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                      <label for="block_select">Choose your Block</label>
+                      <select class="form-control" name="block">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="GPayPhNo">GPay Payment Phone Number</label>
+                      <input type="text" class="form-control" name="gpay_ph_no" placeholder="Enter the phone number">
+                    </div>
+                    <input type="submit" value="Place Order">
+                  </form>
+            </div>
+          </div>
+
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="containerr" style="text-align: center">
+              <h1>Canteen Name, Block {{ nc_id }}</h1>
+              <hr>
+              <h2>Cart Items</h2>
+              <hr>
+              <!-- Printing the cart items -->
+              <h3>Sr No | Quantity | Price | Name</h3>
+      <hr>
+      <p>
+      {% for item, key in cart.items %}
+        {{ forloop.counter }}. 
+        {% for k2, v2 in key.items %}
+          {% if k2.NC_ID == nc_id %}
+            {{ v2 }} {{ ' ' }}
+          {% endif %}
+        {% endfor %}
+        <br>
+      {% endfor %}
+      </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

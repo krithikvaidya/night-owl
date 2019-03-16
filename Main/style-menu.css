@@ -1,0 +1,256 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0px;
+}
+#head{
+    background-color:#f4511e;
+    height:100px;
+    position:relative;
+    width:100%;
+}
+
+#logo,#desc{
+    position:absolute;
+    color:white;
+}
+#logo{
+    font-family:'Snap ITC';
+    bottom:6px;
+    font-size: 30px;
+    left:15px;
+    max-width: 60%;
+}
+
+#desc{
+    font-size:18px;
+    right:15px;
+    max-width: 40%;
+    bottom:8px;
+}
+
+.navigbar{
+    background-color: darkslategray;
+    font-size:17px;
+    font-weight:400;
+    font-family:sans-serif;
+}
+
+.navmenu{
+    padding:10px;
+    display: inline-block;
+    color:darkgrey;
+}
+.navigbar #active{
+    background: black;
+    color:white;
+}
+
+.navmenu.right{
+    float:right;
+}
+#logintable{
+    width:30vw;
+    position: absolute;
+    right:5px;
+    margin-top:12px;
+    border-radius:8px;
+    border:2px #f4511e solid;
+    background-color: darkslategray;
+    z-index: 3;
+}
+
+.loginbar,#submit{
+    margin:12px;
+    margin-bottom:0px;
+    border-radius: 0px;
+}
+.loginbar{
+    border-bottom:2px #f4511e solid;
+    color: white;
+}
+#submit{
+    background-color: red;
+    color: white;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 12px;
+    padding-top:5px;
+}
+
+input,#filtersbutton{
+    background-color:darkslategray;
+    border:none;
+    font-size: 15px;
+    border-radius: 3px;
+    height:40px;
+}
+
+#content{
+    margin:15px 15px;
+}
+
+input.search{
+    background-image: url('searchicon.png');
+    background-size:24px 24px;
+    background-position:8px 8px;
+    background-repeat:  no-repeat;
+    padding-left:40px;
+}
+
+#filtersbutton,input.search{
+    margin-top:10px;
+    color:white;
+    width:100%;
+}
+
+#filtersbutton{
+    padding:12px 0px;
+}
+#searchbar,#parent{
+    padding:0px;
+}
+#filterscollapse{
+    float:right;
+    margin-right:10px;
+}
+
+.child{
+    position:absolute;
+    right:0px;
+    width: 100%;
+    z-index: 2;
+}
+
+.child td,.child tr,.child button{
+    max-width:100%;
+}
+
+#bar1{
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    #logintable{
+        right:10px;
+        left:10px;
+        /* Firefox */
+        width: -moz-calc(100% - 20px);
+        /* WebKit */
+        width: -webkit-calc(100% - 20px);
+        /* Opera */
+        width: -o-calc(100% - 20px);
+        /* Standard */
+        width: calc(100% - 20px);
+    }
+    .navmenu{
+        width:100%;
+        text-align: center;
+        background-color:darkslategrey;
+    }
+    #bar1{
+        display: block;
+    }
+    #bar2{
+        display: none;
+    }
+}
+@media screen and (min-width: 767px) {
+    #bar1{
+        display: none;
+    }
+    #bar2{
+        display: block;
+    }
+}
+    
+.tick{
+    float:right;
+    width:10px;
+    border-radius: 5px;
+    z-index: 2;
+    height:10px;
+    margin-top: 5px;
+    margin-right:3%;
+}
+
+.filterbutton{
+    display: table-cell;
+    width: 100%;
+    background-color:darkslategray;
+    border:1px white solid;
+    color:white;
+}
+.child td{
+    padding:0px;
+}
+
+#applyfilter{
+    background-color: red;
+}
+
+.NCName{
+    background-color:#f4511e;
+    width:100%;
+    padding:2px 5px;
+    margin:4px 0px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.menuExtension{
+    color:darkslategray;
+    display:block;
+    float:right;
+}
+.menuExtension:hover, #filters:hover,.navmenu:hover{
+    color:white;
+}
+
+#firstcol{
+    width:60%;
+}
+#seccol{
+   width:40%; 
+}
+
+table{
+    width:98%;
+    font-size: 16px;
+    align-content: center;
+    margin:auto;
+}
+
+#heading{
+    background-color:#ff8566;
+}
+
+#dishtype{
+    background-color:#ffd6cc;
+}
+#heading th{
+    font-size: 18px;
+}
+th,td{
+    border-left:1px white solid;
+    padding: 2px 5px;
+}
+#dishtype th,#dishtype td,#heading th,#heading td{
+     border:none;
+}
+.menutable tr:nth-child(even)
+{background-color: rgb(205,211,233);}
+.menutable tr:nth-child(odd)
+{background-color: rgb(233,235,245);}
+button{
+    background-color: rgba(255,255,255,0);   border:none;
+}
+
+.down{
+    display:none;
+}
+

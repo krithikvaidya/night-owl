@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Night Owl-Menu</title>
+        <script type="text/javascript">
+            function showlogin(){
+                if(document.querySelector("#logintable").style.display=="none")
+                {document.querySelector("#logintable").style.display="table";
+                }
+                else{
+                 document.querySelector("#logintable").style.display="none";
+                }
+            }
+            function dropdownmenu(){
+                 if(document.querySelector("#bar2").style.display=="none")
+                {document.querySelector("#bar2").style.display="block";
+                }
+                else{
+                 document.querySelector("#bar2").style.display="none";
+                }
+            }
+        </script>
+<!--        LOGO-->
+    </head> 
+    <body>
+        <div id="head">
+            <div id="logo"><b>NIGHTOWL</b></div>
+            <div id="desc">THE NITK NIGHT CANTEEN APP</div>
+        </div>
+        <div class="navigbar" id="bar1" style="height:40px;">
+            <span class="navmenu right">
+                <button onclick="dropdownmenu()" style="float:right;">
+                   <i class="glyphicon glyphicon-menu-hamburger"></i> 
+                </button>
+            </span>
+        </div>
+        <div  class="navigbar" id="bar2">
+            <a href="main.html">
+                <span class="navmenu" id="active">HOME</span>
+            </a>
+            <a href="menu.html">
+                <span class="navmenu">MENUS</span>
+            </a>
+            <a href="#">
+                <span class="navmenu">CALL US</span>
+            </a>
+            <span class="navmenu right">
+                <button onclick="showlogin()" style="background-color: rgba(0,0,0,0);border:none">
+                    <i class="glyphicon glyphicon-log-in"></i>&nbsp;Login
+                </button>
+                        <table id="logintable" style="display:none;">
+                        <tr><td><form><input id="username" type="text" placeholder="Username" class="loginbar"></form></td></tr>
+                        <tr><td><form><input id="password" type="password" placeholder="Password" class="loginbar"></form></td></tr>
+                        <tr><td><div id="submit">Submit</div></td></tr>
+                        </table>
+
+            </span>
+            <a>
+            <span class="navmenu right"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+            </a>
+        </div>
+        <div id="content">
+            <p>
+            <b>Timings:7.30pm to 4.00am</b>
+            <br><br>
+            Which NC would you like to order from?
+            </p>
+            <div class="container-fluid">
+            <a href="#"><div class="canteenname col-xs-6 col-sm-3"><div class="canteennamebig">III</div><br>BLOCK</div>
+            </a>
+            <a href="#"><div class="canteenname col-xs-6 col-sm-3"><div class="canteennamebig">VII</div><br>BLOCK</div>
+            </a>
+            <a href="#"><div class="canteenname col-xs-6 col-sm-3"><div class="canteennamebig">VIII</div><br>BLOCK</div>
+            </a>
+            <a href="#"><div class="canteenname col-xs-6 col-sm-3"><div class="canteennamebig">GIRLS</div><br>BLOCK</div>
+            </a>
+            </div>
+        </div>
+    </body>
+</html>

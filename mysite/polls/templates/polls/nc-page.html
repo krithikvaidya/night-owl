@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Canteen Name</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="{%static 'polls/main-style.css'%}">
+
+  <!-- Optional JS Stuff -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Linking the icon library used for the hamburger menu -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Linking the icon library used for the search button -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Linking the icon library used for the cart button -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      }
+      else {
+        x.className = "topnav";
+      }
+    }
+
+    /* for the increment/decrement quantity thing */
+    $('.input-number-increment').click(function() {
+  var $input = $(this).parents('.input-number-group').find('.input-number');
+  var val = parseInt($input.val(), 10);
+  $input.val(val + 1);
+});
+
+$('.input-number-decrement').click(function() {
+  var $input = $(this).parents('.input-number-group').find('.input-number');
+  var val = parseInt($input.val(), 10);
+  $input.val(val - 1);
+})
+
+  var x = document.getElementById("quantity").value;
+  var y = -x;
+
+  </script>
+</head>
+
+<body>
+  <div class="topnav" id="myTopnav">
+    <a href="#">Night Owl</a>
+    <a href="#">Page 1</a>
+    <a href="#">Page 2</a>
+    <div class="float-right">
+      <a href="#"><i class="fa fa-shopping-cart"> Cart</i></a>
+    </div>
+
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+
+  {% if nc_id == 1 %}
+    <div class="css-jumbotron text-center">
+      <h1>Canteen Name, Block 3</h1>
+      <p>Contact Number: xxxxxxxxxx</p>
+    </div>
+  {% elif nc_id == 2 %}
+    <div class="css-jumbotron text-center">
+      <h1>Canteen Name, Block 7</h1>
+      <p>Contact Number: xxxxxxxxxx</p>
+    </div>
+  {% elif nc_id == 3 %}
+    <div class="css-jumbotron text-center">
+      <h1>Canteen Name, Girl's Block</h1>
+      <p>Contact Number: xxxxxxxxxx</p>
+    </div>
+
+  <!-- else return 404 -->
+{% endif %}
+
+  <div class="row" style="text-align: center;">
+    <div class="column side sidebar">
+      <a href="#">Hot and Cold Beverages</a>
+      <a href="#">Dosas</a>
+      <a href="#">Sandwiches</a>
+      <a href="#">Main Course</a>
+      <a href="#">Chinese Specials</a>
+      <a href="#">Egg Dishes</a>
+      <a href="#">Rice Specials</a>
+      <a href="#">Indian Breads</a>
+      <a href="#">Dessert</a>
+      <a href="#">Specials</a>
+  
+      <form class="example" action="action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+
+    <!-- TODO: Print only the items available in the relevent NC on that day
+               Get the quantity counter to work -->
+    <div class="column middle">
+      <div class="container">          
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Rate</th>
+              <th>Quantity</th>
+              <th>Add/Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dosa</td>
+              <td>30</td>
+              <td>
+                  <div class="input-group input-number-group">
+                      <div class="input-group-button">
+                        <span class="input-number-decrement">-</span>
+                      </div>
+                      <input class="input-number" type="number" value="1" min="0" max="10" id="quantity">
+                      <div class="input-group-button">
+                        <span class="input-number-increment">+</span>
+                      </div>
+                    </div>
+              </td>
+              <td>
+                  <form action="{% url 'Add to Cart' x 1 nc_id %}" method="post">
+                      {% csrf_token %}
+                        <input type="submit" value="Add to Cart">
+                      </form>    
+
+                  <form action="{% url 'Add to Cart' y 1 nc_id %}" method="post">
+                      {% csrf_token %}
+                        <input type="submit" value="Remove from Cart">
+                      </form>    
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="column side sidebar">
+      <h2 style="padding-top: 10px;">Cart Items</h2>
+      <hr>
+      
+      {% for item in cart %}
+        <h2>{{ forloop.counter }}. {{ item.name }} - {{ item.quantity }}</h2>
+      {% endfor %}
+      
+      <form action="{% url 'NC Checkout' nc_id %}" method="post">
+        {% csrf_token %}
+          <input type="submit" value="Checkout">
+      </form> 
+
+    </div>
+
+  </div>
+</body>
+
+</html>
