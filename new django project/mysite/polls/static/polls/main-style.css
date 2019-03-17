@@ -319,19 +319,20 @@ form {
     padding: 4px 10px 4px 22px;
   }
   .content{
-    width:94%;
-    margin-left: 3%;
+    width:100%;
+    margin:0%;
+    padding-right:2%;
   }
 .add_or_remove{
   position:absolute;
   right: 20px;
   color: #60b246;
-  cursor: pointer;
-  padding:1px 15px;
   border: 1px #60b246 solid;
 }
 button{
   background-color: rgba(0,0,0,0);
+  cursor:pointer;
+  padding:1px 12px;
 }
 .add_or_remove:hover{
     position: absolute;
@@ -385,6 +386,41 @@ button{
   display: none;
 }
 .row{
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#cart_box{
+  background-color: aliceblue;
+  margin-top: 115px;
+  padding: 0px;
+}
+.cart_row{
+  margin:3px 0px 3px 0px;
+  background-color: #cce7ff;
+  padding: 5px 5px;
+}
+.cart_left{
+  display: inline-block;
+  width:80%;
+}
+.cart_dish_name{
+  font-size:16px;
+}
+.cart_quantity{
+  font-size:14px;
+}
+.cart_right{
+  display: inline-block;
+  width:15%;
+  font-size: 13px;
+}
+.remove{
+  color:red;
+  border: 1px red solid;
+  margin:5px 0px 0px 0px;
+}
+.remove:hover{
+  position:relative;
+  box-shadow: 0 2px 8px #d4d5d9;
 }
