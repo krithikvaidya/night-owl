@@ -1,0 +1,241 @@
+{% load static %}
+{% load extras %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Canteen Name</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Linking the icon library used for the hamburger menu -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="{%static 'polls/main-style.css'%}">
+
+  <!-- Optional JS Stuff -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      }
+      else {
+        x.className = "topnav";
+      }
+    }
+  var row_id;
+    /* for the increment/decrement quantity thing */
+    function increaseValue(box_id) {
+      var value = parseInt(document.querySelector('#item_box'+box_id+' .button-number').innerText);
+      value++;
+      document.querySelector('#item_box'+box_id+' .button-number').innerText = value;
+    }
+
+function decreaseValue(box_id) {
+  var value = parseInt(document.querySelector('#item_box'+box_id+' .button-number').innerText);
+  value--;
+  if(value<1)
+    value=1;
+  document.querySelector('#item_box'+box_id+' .button-number').innerText = value;
+}
+
+var search_value;
+      function search_bar(search_value){
+           boxes=document.querySelectorAll(".item_box .item_name");
+           for(var j=0;j<boxes.length;j++){
+                  document.querySelectorAll(".item_outerbox")[j].style.display="block";
+           }
+           for(var j=0;j<boxes.length;j++){
+              if(!boxes[j].innerHTML.toLowerCase().includes(search_value.toLowerCase())){
+                   document.querySelectorAll(".item_outerbox")[j].style.display="none";
+              }
+           }
+      }
+      var a, b;
+      function removeElement(a,b)
+        { console.log(b);
+             if(a==1)
+                {document.querySelector(".row"+b).style.display= "none";
+                 document.querySelector(".ext"+ b+" "+".down").style.display="inline-block";
+                 document.querySelector(".ext"+ b+" "+"      .up").style.display="none";
+                }
+             else
+                 {document.querySelector(".row"+b).style.display= "flex";
+                  document.querySelector(".ext"+ b+" "+".up").style.display="inline-block";
+                  document.querySelector(".ext"+ b+" "+"      .down").style.display="none";
+                }
+       }
+      var element_id;
+      var orders=[];
+      var order_length=0;
+
+      function remove_element(element_id){
+          for(i=0;i<orders.length;i++){
+            if(orders[i][0]==element_id){
+              orders.splice(i,1);
+              break;
+            }
+          }
+      }
+      var item_name, item_price, html_code, extra_html,total_price;
+      function add_or_remove(item_id, item_name, item_price){
+        if(document.getElementById("add_or_remove"+item_id).innerText=="Add"){
+              quantity=parseInt(document.querySelector("#item_box" + item_id + " .button-number").innerHTML);
+              document.getElementById("add_or_remove"+item_id).innerText="Remove";
+              document.getElementById("add_or_remove"+item_id).style.color="Red";
+              document.getElementById("add_or_remove"+item_id).style.borderColor="Red";
+              total_price=item_price*quantity;
+              html_code=document.getElementById("cart_box").innerHTML;
+              extra_html='<div class="cart_row cart_row' + item_id +'"><div class="cart_left"><div class="cart_dish_name">'+ item_name +'</div><div class="cart_quantity">'+quantity+' Nos.</div><button class="remove" id="remove' + item_id+ '" onclick="remove(' + item_id +')">Remove</button></div><div class="cart_right">Rs ' + total_price +'</div></div>';
+              document.getElementById("cart_box").innerHTML=html_code+ extra_html;
+              orders.push(item_id,quantity);
+        }
+        else{
+          remove(item_id);
+        }
+      }
+      function remove(item_id){
+        document.getElementById("add_or_remove"+item_id).innerText="Add";
+        document.getElementById("add_or_remove"+item_id).style.color="Green";
+        document.getElementById("add_or_remove"+item_id).style.borderColor="Green";
+        document.querySelector(".cart_row" + item_id).outerHTML="";
+        remove_element(item_id);
+      }
+      var nc_id;
+      function submitted(nc_id){
+          document.getElementById("order_details").value="["+nc_id+',['+orders+"]]";
+      }
+
+
+  </script>
+
+
+</head>
+
+<body>
+  <div class="topnav" id="myTopnav">
+    <a href="#">Night Owl</a>
+    <a href="#">Page 1</a>
+    <a href="#">Page 2</a>
+    <div class="float-right">
+      <a href="#"><i class="fa fa-shopping-cart"> Cart</i></a>
+    </div>
+
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+  {% if nc_id == 1 %}
+    <div class="css-jumbotron text-center">
+      <h1>Canteen Name, Block 3</h1>
+      <p>Contact Number: xxxxxxxxxx</p>
+    </div>
+  {% elif nc_id == 2 %}
+    <div class="css-jumbotron text-center">
+      <h1>Canteen Name, Block 7</h1>
+      <p>Contact Number: xxxxxxxxxx</p>
+    </div>
+  {% elif nc_id == 3 %}
+    <div class="css-jumbotron text-center">
+      <h1>Canteen Name, Girl's Block</h1>
+      <p>Contact Number: xxxxxxxxxx</p>
+    </div>
+
+  <!-- else return 404 -->
+{% endif %}
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+<div class="row row_content">
+    <div class="content col-sm-12 col-md-8">
+    <input id="searchbar" type="text" class="search" placeholder="Search here" oninput="search_bar(this.value)">
+          {%sort_by_filter dishes as groupedbyfilters%}
+          {%for bar in groupedbyfilters%}
+          <div class="NCName">
+                  {{bar.0.filter.name}}
+                  <span class="menuExtension ext{{forloop.counter}}"><button class="up" onclick="removeElement(1,'{{forloop.counter}}')"><i class="fa fa-chevron-up"></i></button>
+                  <button class="down" onclick="removeElement(0,'{{forloop.counter}}')">
+                  <i class="fa fa-chevron-down" ></i></button>
+                  </span>
+          </div>
+          <div class="row row{{forloop.counter}}">
+          {%for item in bar|sort_by_price %}
+          <div class="col-sm-12 col-md-6 item_outerbox">
+            <div class="item_box" id="item_box{{item.id}}">
+              {%if item.veg == True%}
+                <img class="veg" src="{%static 'polls/veg.jpg'%}">
+              {%else%}
+                <img class="veg" src="{%static 'polls/non-veg.png'%}">
+              {%endif%}
+              <span class="item_name">{{item.name}}</span><br>
+              <span class="item_cost">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs {{item.price}}</span><br>
+
+              <form action="{% url 'polls:NC Page' nc_id=nc_id %}" method="post">
+                {% csrf_token %}
+                  <input type="hidden" id="item_id" name="item_id" value="{{ item.id }}">
+                  <input type="hidden" id="add" name="add" value="True">
+                  <input type="submit" value="Add to Cart">
+              </form>
+  
+              <form action="{% url 'polls:NC Page' nc_id=nc_id %}" method="post">
+                {% csrf_token %}
+                  <input type="hidden" id="item_id" name="item_id" value="{{ item.id }}">
+                  <input type="hidden" id="add" name="add" value="False">
+                  <input type="submit" value="Remove from Cart">
+              </form>
+
+            </div>
+          </div>
+        {%endfor%}
+        </div>
+        {%endfor%}
+
+    <div class="col-sm-12 col-md-4" id="cart_box">
+      <div style="font-size:18px;background-color: green;color: white;padding:10px 5px;">
+          <center>IN THE CART</center>
+
+          <p>
+            {% for item, key in cart.items %}
+              {{ forloop.counter }}. 
+              {% for k2, v2 in key.items %}
+                {% if key.NC_ID == nc_id %}
+                  {% if forloop.counter != 1 %}
+                    {{ v2 }} {{ ' ' }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              <br>
+            {% endfor %}
+            </p>
+
+          <form action="{% url 'polls:NC Checkout' %}" method="post">
+            {% csrf_token %}
+              <input type="hidden" id="nc_id" name="nc_id" value=" {{ nc_id }}">
+              <input type="submit" value="Checkout">
+          </form> 
+      </div>
+      
+    </div>
+</div>
+    <!-- <div style="background-color: black;color:white;text-align: center;position: sticky;bottom: 0px;
+
+
+                ">3 items in cart</div>
+</body> -->
+
+</html>
