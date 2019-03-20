@@ -13,7 +13,6 @@ class Products(models.Model):
         return self.name
 
 class PaidOrdersNC1(models.Model):
-    car
     ph_no = models.BigIntegerField()
     gpay_ph_no = models.BigIntegerField()
     block = models.CharField(max_length=15)
@@ -31,4 +30,3 @@ class PaidOrdersNC3(models.Model):
 
     def __nonzero__(self): # return an object of this class only if UPI is non-empty
         return bool(UPI)
-

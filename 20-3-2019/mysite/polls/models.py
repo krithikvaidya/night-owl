@@ -62,10 +62,11 @@ class PaidOrdersNC1(models.Model):  # each object of this model represents a suc
     gpay_ph_no = models.BigIntegerField()
     block = models.CharField(max_length=15)
     order_comments = models.TextField(null=True, blank=True)
-
     item_name = models.TextField()
     price = models.TextField()
     quantity = models.TextField()
+    MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    filters = models.CharField(choices=MY_CHOICES, default='Delivered', max_length=1)
 
     def __str__(self):
         return 'Order number - ' + str(self.pk)
@@ -76,10 +77,12 @@ class PaidOrdersNC2(models.Model):  # each object of this model represents a suc
     gpay_ph_no = models.BigIntegerField()
     block = models.CharField(max_length=15)
     order_comments = models.TextField(null=True, blank=True)
-
     item_name = models.TextField()
     price = models.TextField()
     quantity = models.TextField()
+    MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    filters = models.CharField(choices=MY_CHOICES, default='Delivered', max_length=1)
+
 
     def __str__(self):
         return 'Order number - ' + str(self.pk)
@@ -89,10 +92,11 @@ class PaidOrdersNC3(models.Model):  # each object of this model represents a suc
     gpay_ph_no = models.BigIntegerField()
     block = models.CharField(max_length=15)
     order_comments = models.TextField(null=True, blank=True)
-
     item_name = models.TextField()
     price = models.TextField()
     quantity = models.TextField()
+    MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    filters = models.CharField(choices=MY_CHOICES, default='Delivered', max_length=1)
 
     def __str__(self):
         return 'Order number - ' + str(self.pk)

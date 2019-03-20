@@ -23,16 +23,14 @@
 
 
 <script>
-  var box_id;
-  var item_name;
-  var item_price;
+  var box_id, item_name, item_price, search_value,a, b, element_id, nc_id;
   function add_to_cart(box_id, item_name, item_price){
     document.querySelector("#add_or_remove"+ box_id).style.display="inline-block";
     document.querySelector("#quantity" + box_id).innerHTML=1;
     document.querySelector("#cart_form_type2"+box_id).style.display="none";
-    html_code=document.getElementById("cart_box").innerHTML;
+    html_code=document.querySelector(".cart_content").innerHTML;
     extra_html='<div class="cart_row cart_row' + box_id +'"><div class="cart_left"><div class="cart_dish_name">'+ item_name +'</div><div class="cart_quantity"><span id="cart_quantity'+box_id+'">1</span> Nos.</div></div><div class="cart_right">Rs ' + item_price +'</div></div>';
-    document.getElementById("cart_box").innerHTML=html_code+ extra_html;
+    document.querySelector(".cart_content").innerHTML=html_code+ extra_html;
   }
     /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
   function myFunction() {
@@ -44,7 +42,6 @@
       x.className = "topnav";
     }
   }
-  var row_id;
     /* for the increment/decrement quantity thing */
   function increaseValue(box_id) {
     console.log(box_id);
@@ -52,78 +49,56 @@
     value++;
     document.querySelector('#quantity'+box_id).innerText = value;
     document.querySelector("#cart_quantity"+box_id).innerText=value;
-
   }
 
-function decreaseValue(box_id) {
-  console.log(box_id);
-  var value = parseInt(document.querySelector('#quantity'+box_id).innerText);
-  value--;
-  if(value<1)
-    {
-       document.querySelector("#add_or_remove"+ box_id).style.display="none";
-       document.querySelector("#cart_form_type2"+box_id).style.display="inline-block";
-       document.querySelector(".cart_row"+box_id).style.display="none";
+  function decreaseValue(box_id) {
+    var value = parseInt(document.querySelector('#quantity'+box_id).innerText);
+    value--;
+    if(value<1)
+      {
+         document.querySelector("#add_or_remove"+ box_id).style.display="none";
+         document.querySelector("#cart_form_type2"+box_id).style.display="block";
+         document.querySelector(".cart_row"+box_id).style.display="none";
+      }
+    else{
+        document.querySelector('#quantity'+box_id).innerText = value;
+        document.querySelector("#cart_quantity"+box_id).innerText=value;
     }
-  else{
-      document.querySelector('#quantity'+box_id).innerText = value;
-      document.querySelector("#cart_quantity"+box_id).innerText=value;
   }
 
-}
-
-var search_value;
-      function search_bar(search_value){
-           boxes=document.querySelectorAll(".item_box .item_name");
-           for(var j=0;j<boxes.length;j++){
-                  document.querySelectorAll(".item_outerbox")[j].style.display="block";
-           }
-           for(var j=0;j<boxes.length;j++){
-              if(!boxes[j].innerHTML.toLowerCase().includes(search_value.toLowerCase())){
-                   document.querySelectorAll(".item_outerbox")[j].style.display="none";
-              }
-           }
-      }
-      var a, b;
-      function removeElement(a,b)
-        { console.log(b);
-             if(a==1)
-                {document.querySelector(".row"+b).style.display= "none";
-                 document.querySelector(".ext"+ b+" "+".down").style.display="inline-block";
-                 document.querySelector(".ext"+ b+" "+"      .up").style.display="none";
-                }
-             else
-                 {document.querySelector(".row"+b).style.display= "flex";
-                  document.querySelector(".ext"+ b+" "+".up").style.display="inline-block";
-                  document.querySelector(".ext"+ b+" "+"      .down").style.display="none";
-                }
+  function search_bar(search_value){
+       boxes=document.querySelectorAll(".item_box .item_name");
+       for(var j=0;j<boxes.length;j++){
+              document.querySelectorAll(".item_outerbox")[j].style.display="block";
        }
-      var element_id;
-      var orders=[];
-      var order_length=0;
-      var box_id;
-
-      function remove_element(element_id){
-          for(i=0;i<orders.length;i++){
-            if(orders[i][0]==element_id){
-              orders.splice(i,1);
-              break;
-            }
+       for(var j=0;j<boxes.length;j++){
+          if(!boxes[j].innerHTML.toLowerCase().includes(search_value.toLowerCase())){
+               document.querySelectorAll(".item_outerbox")[j].style.display="none";
           }
-      }
-      function remove(item_id){
-        document.getElementById("add_or_remove"+item_id).innerText="Add";
-        document.getElementById("add_or_remove"+item_id).style.color="Green";
-        document.getElementById("add_or_remove"+item_id).style.borderColor="Green";
-        document.querySelector(".cart_row" + item_id).outerHTML="";
-        remove_element(item_id);
-      }
-      var nc_id;
-      function submitted(nc_id){
-          document.getElementById("order_details").value="["+nc_id+',['+orders+"]]";
-      }
-      $(function() {
-    $(".cart_form").submit(function(event) {
+       }
+  }
+  function removeElement(a,b)
+    {
+         if(a==1)
+            {document.querySelector(".row"+b).style.display= "none";
+             document.querySelector(".ext"+ b+" "+".down").style.display="inline-block";
+             document.querySelector(".ext"+ b+" "+"      .up").style.display="none";
+            }
+         else
+             {document.querySelector(".row"+b).style.display= "flex";
+              document.querySelector(".ext"+ b+" "+".up").style.display="inline-block";
+              document.querySelector(".ext"+ b+" "+"      .down").style.display="none";
+            }
+   }
+  function remove(item_id){
+    document.getElementById("add_or_remove"+item_id).innerText="Add";
+    document.getElementById("add_or_remove"+item_id).style.color="Green";
+    document.getElementById("add_or_remove"+item_id).style.borderColor="Green";
+    document.querySelector(".cart_row" + item_id).outerHTML="";
+  }
+
+  $(function() {
+    $(".cart_form, .cart_form_type2").submit(function(event) {
         // Stop form from submitting normally
         event.preventDefault();
         var friendForm = $(this);
@@ -132,62 +107,40 @@ var search_value;
         // if success:
         posting.done(function(data) {
             // success actions, maybe change submit button to 'friend added' or whatever
-            console.log("Success");
         });
         // if failure:
         posting.fail(function(data) {
             // 4xx or 5xx response, alert user about failure
         });
+      });
     });
-});
-$(function() {
-$(".cart_form_type2").submit(function(event) {
-  // Stop form from submitting normally
-  event.preventDefault();
-  var friendForm = $(this);
-  // Send the data using post
-  var posting = $.post( friendForm.attr('action'), friendForm.serialize() );
-  // if success:
-  posting.done(function(data) {
-      // success actions, maybe change submit button to 'friend added' or whatever
-      console.log("Success");
-  });
-  // if failure:
-  posting.fail(function(data) {
-      // 4xx or 5xx response, alert user about failure
-  });
-});
-});
-
-  </script>
-
-
+</script>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="{% url 'polls:Home' %}">Night Owl</a>
   </nav>
 
   {% if nc_id == 1 %}
   <div class="jumbotron jumbotron-fluid text-center">  <!-- BootStrap's jumbotron class for big titles-->
     <div class="container">
-        <h1>Jumadi Hospitality Pvt. Ltd. - Block 3</h1> 
-        <p>Contact - 9380807887, 9972209930</p> 
+        <h1>Jumadi Hospitality Pvt. Ltd. - Block 3</h1>
+        <p>Contact - 9380807887, 9972209930</p>
     </div>
   </div>
   {% elif nc_id == 2 %}
   <div class="jumbotron jumbotron-fluid text-center">  <!-- BootStrap's jumbotron class for big titles-->
     <div class="container">
-        <h1>Sai Hospitality Services - Block 7</h1> 
-        <p>Contact - 9380802849, 9972209920</p> 
+        <h1>Sai Hospitality Services - Block 7</h1>
+        <p>Contact - 9380802849, 9972209920</p>
     </div>
   </div>
   {% elif nc_id == 3 %}
     <div class="jumbotron jumbotron-fluid text-center">  <!-- BootStrap's jumbotron class for big titles-->
       <div class="container">
-          <h1>The Sanoor Canteen</h1> 
-          <p>Contact - 9380948425, 9632841017</p> 
+          <h1>The Sanoor Canteen</h1>
+          <p>Contact - 9380948425, 9632841017</p>
       </div>
     </div>
   {% endif %}
@@ -204,12 +157,12 @@ $(".cart_form_type2").submit(function(event) {
     <input id="searchbar" type="text" class="search" placeholder="Search here" oninput="search_bar(this.value)">
           {%sort_by_filter dishes as groupedbyfilters%}
           {%for bar in groupedbyfilters%}
-          <div class="NCName">
-                  {{bar.0.filter.name}}
-                  <span class="menuExtension ext{{forloop.counter}}"><button class="up" onclick="removeElement(1,'{{forloop.counter}}')"><i class="fa fa-chevron-up"></i></button>
-                  <button class="down" onclick="removeElement(0,'{{forloop.counter}}')">
-                  <i class="fa fa-chevron-down" ></i></button>
-                  </span>
+          <div class="FilterName">
+              {{bar.0.filter.name}}
+              <span class="menuExtension ext{{forloop.counter}}"><button class="up" onclick="removeElement(1,'{{forloop.counter}}')"><i class="fa fa-chevron-up"></i></button>
+              <button class="down" onclick="removeElement(0,'{{forloop.counter}}')">
+              <i class="fa fa-chevron-down" ></i></button>
+              </span>
           </div>
           <div class="row row{{forloop.counter}}">
           {%for item in bar|sort_by_price %}
@@ -223,11 +176,13 @@ $(".cart_form_type2").submit(function(event) {
               <span class="item_name">{{item.name}}</span><br>
               <span class="item_cost">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs {{item.price}}</span><br>
 
-              {%if item.id|tostring in cart%}
-              <div class="add_or_remove" id="add_or_remove{{item.id}}">
-              {%else%}
-              <div class="add_or_remove" id="add_or_remove{{item.id}}" style="display: none;">
-              {%endif%}
+
+
+              <div class="add_or_remove" id="add_or_remove{{item.id}}" style="
+                {%if item.id|tostring not in cart%}
+                display: none;
+                {%endif%}"
+              >
                 <form action="{% url 'polls:NC Page' nc_id=nc_id %}" class="cart_form" method="post">
                   {% csrf_token %}
                     <input type="hidden" id="item_id" name="item_id" value="{{ item.id }}">
@@ -250,11 +205,12 @@ $(".cart_form_type2").submit(function(event) {
                       <input type="submit" value="+" onclick="increaseValue({{item.id}})">
                   </form>
               </div>
-              {%if item.id|tostring not in cart%}
-                <form class="cart_form_type2"  id="cart_form_type2{{item.id}}" action="{% url 'polls:NC Page' nc_id=nc_id %}" method="post">
-              {%else%}
-                <form class="cart_form_type2"  id="cart_form_type2{{item.id}}"  action="{% url 'polls:NC Page' nc_id=nc_id %}" method="post" style="display: none;">
-              {%endif%}
+                <form class="cart_form_type2"  id="cart_form_type2{{item.id}}"  action="{% url 'polls:NC Page' nc_id=nc_id %}" method="post" style="
+                {%if item.id|tostring in cart%}
+                  display: none;
+                {%endif%}"
+                >
+
                   {% csrf_token %}
                     <input type="hidden" id="item_id" name="item_id" value="{{ item.id }}">
                     <input type="hidden" id="add" name="add" value="True">
@@ -266,36 +222,42 @@ $(".cart_form_type2").submit(function(event) {
         </div>
         {%endfor%}
     </div>
-
     <div class="col-sm-12 col-md-4" id="cart_box">
-
-      <div style="font-size:18px;background-color: green;color: white;padding:10px 5px;">
+      <div style="font-size:16px;background-color: green;color: white;padding:7px;height: 40px;">
           <center>Cart</center>
       </div>
-        {% for item in cart.items%}
-            {% if item.1.NC_ID == nc_id %}
-              <div class="cart_row cart_row{{item.0}}">
-                <div class="cart_left">
-                  <div class="cart_dish_name">
-                  {{item.1.name}}
+      <div class="cart_content">
+        {%if cart.items|length > 2 %}
+          {% for item in cart.items%}
+              {% if item.1.NC_ID == nc_id %}
+                <div class="cart_row cart_row{{item.0}}">
+                  <div class="cart_left">
+                    <div class="cart_dish_name">
+                    {{item.1.name}}
+                    </div>
+                    <div class="cart_quantity"><span id="cart_quantity{{item.0}}">{{item.1.quantity}}</span> Nos.</div>
                   </div>
-                  <div class="cart_quantity"><span id="cart_quantity{{item.0}}">{{item.1.quantity}}</span> Nos.</div>
+                  <div class="cart_right">Rs {{item.1.price}}</div>
                 </div>
-                <div class="cart_right">Rs {{item.1.price}}</div>
-              </div>
-            {% endif %}
-        {% endfor %}
-        
-        <div style="position: relative">
-          <form action="{% url 'polls:NC Checkout' %}" method="post">
-            {% csrf_token %}
-              <input type="hidden" id="nc_id" name="nc_id" value="{{ nc_id }}">
-              <input type="submit" class="btn btn-primary" style="margin-top: 5px;" value="Checkout">
-          </form>
+              {% endif %}
+          {% endfor %}
         </div>
+          <div class="submit_button">
+            <form action="{% url 'polls:NC Checkout' %}" method="post">
+              {% csrf_token %}
+                <input type="hidden" id="nc_id" name="nc_id" value="{{ nc_id }}">
+                <input type="submit" class="btn btn-primary" style="margin-top: 5px;" value="Checkout">
+            </form>
+          </div>
+        {%else%}
+         <div id="empty_cart"><center><i class="fa fa-shopping-cart" style="font-size:30px;"></i></center><br>Cart is empty</div>
+        {%endif%}
       </div>
-
-  </div>
-
+    </div>
+    <div id="cart_box_link" style="width:100%;padding:10px 5%;;background-color:white;position: fixed;bottom:0px;z-index:3;">
+      <div class="col-sm-12 col-md-0" style="font-size:16px;background-color: green;color: white;padding:7px;height: 40px;">
+        <a href="#cart_box" style="color:white;"><center>Cart</center> </a>
+      </div>
+    </div>
 
 </html>

@@ -20,9 +20,22 @@ class NC3ProductsAdmin(admin.ModelAdmin):
     list_filter = ['currently_present','filter']
     search_fields = ['name']
 
-admin.site.register(PaidOrdersNC1)
-admin.site.register(PaidOrdersNC2)
-admin.site.register(PaidOrdersNC3)
+@admin.register(PaidOrdersNC1)
+class PaidOrdersNC1Admin(admin.ModelAdmin):
+    list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
+    list_filter = ['filters']
+
+
+@admin.register(PaidOrdersNC2)
+class PaidOrdersNC2Admin(admin.ModelAdmin):
+    list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
+    list_filter = ['filters']
+
+@admin.register(PaidOrdersNC3)
+class PaidOrdersNC3Admin(admin.ModelAdmin):
+    list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
+    list_filter = ['filters']
+
 admin.site.register(NC1Filters)
 admin.site.register(NC2Filters)
 admin.site.register(NC3Filters)
