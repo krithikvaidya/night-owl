@@ -1,0 +1,7 @@
+/*The big orange bar at the top of the page, with the name and contact number of the canteen*/
+.jumbotron 
+{ 
+    background-color: #f4511e; 
+    color: #ffffff;
+    margin-bottom: 0;
+}

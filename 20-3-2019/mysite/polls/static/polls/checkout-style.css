@@ -1,0 +1,37 @@
+* 
+{
+    box-sizing: border-box;
+}
+
+/*The big orange bar at the top of the page, with the name and contact number of the canteen*/
+.jumbotron 
+{ 
+    background-color: #f4511e; 
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+body 
+{
+    margin: 0; /* Removing the default margins for all body elements */
+    font-family: Arial, Helvetica, sans-serif; /* Specifying several fonts in case some of the fonts aren't available in the user's browser */
+}
+
+.float-right
+{
+    float: right;
+}
+
+.text-center
+{
+    text-align: center;
+}
+
+.col-sm-6
+{
+    padding-top: 10px;
+    font-size: 200%;
+    background-color: powderblue;
+    height: 1000px;
+}
+
