@@ -37,44 +37,66 @@
             <h1>Checkout</h1>
         </div>
     </div>
-    <div class="container-fluid text-center">
-      <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-              <div class="containerr" style="text-align: center">
-                <hr>
-              </div>
 
-              <h3>Total Cost = Rs. {{ cart.total }}</h3>
-
-              {% crispy form form.helper %}
-
+    {% if messages %}
+      <div class="alert alert-warning" style="margin-bottom: 0;">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div> 
+    {% endif %}
+    
+    
+      
+    <div class="container-fluid">
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-6">
+          <div class="card border-dark mb-3">
+            <h3 class="card-header"><center>Customer Details</center></h3>
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" id="Submit" name="Submit" class="btn btn-primary">Place Order</button>
+              </form>
             </div>
           </div>
+        </div>
 
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="containerr" style="text-align: center">
-              <h1>Canteen Name, Block {{ nc_id }}</h1>
-              <hr>
-              <h2>Cart Items</h2>
-              <hr>
-              <!-- Printing the cart items -->
-              <h3>Sr No | Quantity | Price | Name</h3>
-      <hr>
-      <p>
-        {% for item, key in cart_items.items %}
-            {{ forloop.counter }}. 
-            {% for k2, v2 in key.items %}
-              {% if key.NC_ID == cart.nc_id %}
-                {% if forloop.counter != 1 %}
-                  {{ v2 }} {{ ' ' }}
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-            <br>
-        {% endfor %}
-        </p>
+        <div class="col-md-6">
+          <div class="card border-dark mb-3">
+            <h3 class="card-header"><center>Cart Items</center></h3>
+            <div class="card-body">
+              <div class="container">           
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Item Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item, key in cart_items.items %}
+                      <tr>
+                        {% for k2, v2 in key.items %}
+                          {% if key.NC_ID == cart.nc_id %}
+                            {% if forloop.counter != 1 %}
+                              {% if forloop.counter != 3 %}
+                                <td>{{ v2 }}</td>
+                              {% else %}
+                                <td>Rs. {{ v2 }}</td>
+                              {% endif %}
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                  
+                </table>
+                <h5 style='float: right;'>Order Total = Rs. {{ cart.total }}</h5>
+              </div>
             </div>
           </div>
         </div>

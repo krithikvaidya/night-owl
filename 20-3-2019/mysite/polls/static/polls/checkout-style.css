@@ -22,16 +22,9 @@ body
     float: right;
 }
 
-.text-center
-{
-    text-align: center;
-}
-
 .col-sm-6
 {
     padding-top: 10px;
-    font-size: 200%;
-    background-color: powderblue;
-    height: 1000px;
+    background-color: lightgrey;
 }
 

@@ -107,6 +107,22 @@ def checkout(request):
                 gpay_phno = form.cleaned_data['gpay_ph_no']
                 block = form.cleaned_data['block']
 
+                if (len(str(phno)) != 10) or (len(str(gpay_phno)) != 10):
+                    messages.error(request, "Please enter valid 10-digit phone numbers!")
+                    
+                    for item, hmm in cart.items():
+                        if not isinstance(hmm, dict):
+                            continue
+                
+                        if hmm['NC_ID'] == nc_id:
+                            cart_items[item] = cart[item]
+
+                    context = { 'cart': cart,
+                        'form': form,
+                        'cart_items': cart_items }
+
+                    return render(request, 'polls/checkout.html', context)
+                    
                 Item_name = []
                 Price = []
                 Quantity = []
