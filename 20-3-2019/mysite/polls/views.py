@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
+import datetime
+
 from polls.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
 from .forms import CheckoutForm
 
@@ -148,6 +150,7 @@ def checkout(request):
                 phno = form.cleaned_data['ph_no']
                 gpay_phno = form.cleaned_data['gpay_ph_no']
                 block = form.cleaned_data['block']
+                order_comments = form.cleaned_data['order_comments']
 
                 if (len(str(phno)) != 10) or (len(str(gpay_phno)) != 10):
                     messages.error(request, "Please enter valid 10-digit phone numbers!")
@@ -186,11 +189,11 @@ def checkout(request):
                 str_quantity = str_quantity.join(Quantity)
 
                 if nc_id == 1:
-                    PaidOrdersNC1.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno)
+                    PaidOrdersNC1.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
                 elif nc_id == 2:
-                    PaidOrdersNC2.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno)
+                    PaidOrdersNC2.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
                 elif nc_id == 3:
-                    PaidOrdersNC3.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno)
+                    PaidOrdersNC3.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
 
                 request.session.flush()  # clears the cart after order has been placed.
-                return render(request, 'polls/success.html')
+                return render(request, 'polls/success.html', {'time': datetime.datetime.now()})

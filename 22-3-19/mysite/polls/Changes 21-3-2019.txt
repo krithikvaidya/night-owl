@@ -1,0 +1,69 @@
+- added verbose names for every model
+- changed the order in which models.py code is defined
+
+- removed myFunction from nc-page.html
+- removed topnav related css in main-styles.css
+- added some comments in both the above
+
+- fixed the homepage cards
+- added {% widthratio v2 1 key.quantity %} to checkout.html
+
+- in checkout.html, also addded order-md-1 and 2 and reversed the order of the two cards
+<div class="container-fluid">
+      <div class="row" style="margin-top: 10px;">
+        
+
+        <div class="col-md-6 order-md-2">
+          <div class="card border-dark mb-3">
+            <h3 class="card-header"><center>Cart Items</center></h3>
+            <div class="card-body">
+              <div class="container">           
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Item Name</th>
+                      <th>Quantity</th>
+                      <th>Total Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item, key in cart_items.items %}
+                      <tr>
+                        {% if key.NC_ID == cart.nc_id %}
+                          <td>{{ key.name }}</td>
+                          <td>{{ key.quantity }}</td>
+                          <td>Rs. {% widthratio key.price 1 key.quantity %}</td>
+                        {% endif %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                  
+                </table>
+                <h5 style='float: right;'>Order Total = Rs. {{ cart.total }}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 order-md-1">
+          <div class="card border-dark mb-3">
+            <h3 class="card-header"><center>Customer Details</center></h3>
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" id="Submit" name="Submit" class="btn btn-primary">Place Order</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+- ALso center aligned the order total area. and center aligned last 2 table heads and table data.
+- Removed JS myfunction() from checkout.html
+
+- Created proper order confirmation page.
+- deleted base.html
+- deleted cart app folder, removed from apps.py and INSTALLED_APPS in settings.py

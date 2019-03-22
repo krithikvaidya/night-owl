@@ -1,5 +1,5 @@
 <div class="cart_content">
-  {%if cart.items|length > 2 %}
+  {%if cart.items|length > 0 %}
     {% for item in cart.items%}
         {% if item.1.NC_ID == nc_id %}
           <div class="cart_row cart_row{{item.0}}">
