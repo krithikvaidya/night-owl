@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
-    'cart.apps.CartConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',

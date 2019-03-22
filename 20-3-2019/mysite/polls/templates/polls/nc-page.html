@@ -32,17 +32,8 @@
     extra_html='<div class="cart_row cart_row' + box_id +'"><div class="cart_left"><div class="cart_dish_name">'+ item_name +'</div><div class="cart_quantity"><span id="cart_quantity'+box_id+'">1</span> Nos.</div></div><div class="cart_right">Rs ' + item_price +'</div></div>';
     document.querySelector(".cart_content").innerHTML=html_code+ extra_html;
   }
-    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    }
-    else {
-      x.className = "topnav";
-    }
-  }
-    /* for the increment/decrement quantity thing */
+
+    /* for incrementing/decrementing item quantity */
   function increaseValue(box_id) {
     console.log(box_id);
     var value = parseInt(document.querySelector('#quantity'+box_id).innerText);
