@@ -13,18 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
     <link rel="stylesheet" type="text/css" href="{%static 'polls/checkout-style.css'%}">
-
-    <script>
-        /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-    function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    } else {
-      x.className = "topnav";
-    }
-  }
-    </script>
+    
 </head>
 
 <body>
@@ -49,58 +38,55 @@
     
       
     <div class="container-fluid">
-      <div class="row" style="margin-top: 10px;">
-        <div class="col-md-6">
-          <div class="card border-dark mb-3">
-            <h3 class="card-header"><center>Customer Details</center></h3>
-            <div class="card-body">
-              <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" id="Submit" name="Submit" class="btn btn-primary">Place Order</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="card border-dark mb-3">
-            <h3 class="card-header"><center>Cart Items</center></h3>
-            <div class="card-body">
-              <div class="container">           
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Item Name</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for item, key in cart_items.items %}
+        <div class="row" style="margin-top: 10px;">
+          
+  
+          <div class="col-md-6 order-md-2">
+            <div class="card border-dark mb-3">
+              <h3 class="card-header"><center>Cart Items</center></h3>
+              <div class="card-body">
+                <div class="container">           
+                  <table class="table table-hover">
+                    <thead>
                       <tr>
-                        {% for k2, v2 in key.items %}
-                          {% if key.NC_ID == cart.nc_id %}
-                            {% if forloop.counter != 1 %}
-                              {% if forloop.counter != 3 %}
-                                <td>{{ v2 }}</td>
-                              {% else %}
-                                <td>Rs. {{ v2 }}</td>
-                              {% endif %}
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
+                        <th>Item Name</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Total Price</th>
                       </tr>
-                    {% endfor %}
-                  </tbody>
-                  
-                </table>
-                <h5 style='float: right;'>Order Total = Rs. {{ cart.total }}</h5>
+                    </thead>
+                    <tbody>
+                      {% for item, key in cart_items.items %}
+                        <tr>
+                          {% if key.NC_ID == cart.nc_id %}
+                            <td>{{ key.name }}</td>
+                            <td style="text-align: center;">{{ key.quantity }}</td>
+                            <td style="text-align: center;">Rs. {% widthratio key.price 1 key.quantity %}</td>
+                          {% endif %}
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                    
+                  </table>
+                  <h5 style="text-align: center;">Order Total = Rs. {{ cart.total }}</h5>
+                </div>
               </div>
             </div>
           </div>
+  
+          <div class="col-md-6 order-md-1">
+            <div class="card border-dark mb-3">
+              <h3 class="card-header"><center>Customer Details</center></h3>
+              <div class="card-body">
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <button type="submit" id="Submit" name="Submit" class="btn btn-primary">Place Order</button>
+                </form>
+              </div>
+            </div>
+          </div>
+  
         </div>
       </div>
-    </div>
 </body>
 </html>

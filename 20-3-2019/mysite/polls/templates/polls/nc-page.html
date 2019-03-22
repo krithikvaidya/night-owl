@@ -30,17 +30,8 @@
     document.querySelector("#quantity" + box_id).innerHTML=1;
     document.querySelector("#cart_form_type2"+box_id).style.display="none";
   }
-    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
-    }
-    else {
-      x.className = "topnav";
-    }
-  }
-    /* for the increment/decrement quantity thing */
+
+    /* for incrementing/decrementing item quantity */
   function increaseValue(box_id) {
     console.log(box_id);
     var value = parseInt(document.querySelector('#quantity'+box_id).innerText);
