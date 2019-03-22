@@ -1,5 +1,5 @@
 from django.contrib import admin
-from polls.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3, NC1Filters, NC2Filters, NC3Filters
+from polls.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
 
 # Register your models here.
 @admin.register(NC1Products)
@@ -35,7 +35,3 @@ class PaidOrdersNC2Admin(admin.ModelAdmin):
 class PaidOrdersNC3Admin(admin.ModelAdmin):
     list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
     list_filter = ['filters']
-
-admin.site.register(NC1Filters)
-admin.site.register(NC2Filters)
-admin.site.register(NC3Filters)

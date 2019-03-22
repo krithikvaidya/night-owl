@@ -3,9 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
-
-from polls.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2
-from polls.models import PaidOrdersNC3,NC1Filters,NC2Filters, NC3Filters
+from polls.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
 from .forms import CheckoutForm
 
 def home(request):
@@ -13,18 +11,15 @@ def home(request):
 
 def nc_page(request, nc_id):
     cart = request.session.get('cart',{})
-    
+
     if(nc_id==1):
         dishes=NC1Products.objects.all()
-        filters=NC1Filters.objects.all()
-        
+
     elif(nc_id==2):
         dishes=NC2Products.objects.all()
-        filters=NC2Filters.objects.all()
-        
+
     else:
         dishes=NC3Products.objects.all()
-        filters=NC3Filters.objects.all()
 
     if request.method == "POST":
         item_id = request.POST.get("item_id")
@@ -41,13 +36,13 @@ def nc_page(request, nc_id):
         itemID = str(item_id)
 
         if (itemID not in cart) and (add == "True"):
-            cart[itemID] = { 
-                            'NC_ID': nc_id, 
+            cart[itemID] = {
+                            'NC_ID': nc_id,
                             'name': product.name,
                             'price': product.price,
                             'quantity': 1,
                            }
-                           
+
         elif (itemID not in cart) and (add == "False"):
             messages.error(request, 'This item does not exist in your cart.')
 
@@ -60,12 +55,59 @@ def nc_page(request, nc_id):
             else:
                 cart[itemID]['quantity'] -= 1
 
-    request.session['cart'] = cart
+        request.session['cart'] = cart
+
+        context = {'nc_id': nc_id,
+                   'cart': cart ,
+                   'dishes':dishes}
+
+        return render(request, 'polls/cart-table.html', context)
 
     context = {'nc_id': nc_id,
                'cart': cart ,
-               'dishes':dishes,
-               'filters':filters}
+               'dishes':dishes}
+
+    # if request.is_ajax():
+        # item_id = request.POST.get("item_id")
+        # qty = request.POST.get("qty")
+        # add = request.POST.get("add")
+        #
+        # if(nc_id==1):
+        #     product = NC1Products.objects.get(pk=item_id)
+        # elif(nc_id==2):
+        #     product = NC2Products.objects.get(pk=item_id)
+        # else:
+        #     product = NC3Products.objects.get(pk=item_id)
+        #
+        # itemID = str(item_id)
+        #
+        # if (itemID not in cart) and (add == "True"):
+        #     cart[itemID] = {
+        #                     'NC_ID': nc_id,
+        #                     'name': product.name,
+        #                     'price': product.price,
+        #                     'quantity': 1,
+        #                    }
+        #
+        # elif (itemID not in cart) and (add == "False"):
+        #     messages.error(request, 'This item does not exist in your cart.')
+        #
+        # elif (itemID in cart) and (add == "True"):
+        #     cart[itemID]['quantity'] += 1
+        #
+        # elif  (itemID in cart) and (add == "False"):
+        #     if cart[itemID]['quantity'] == 1:
+        #         cart.pop(itemID)
+        #     else:
+        #         cart[itemID]['quantity'] -= 1
+        # request.session['cart'] = cart
+        #
+        # context = {'nc_id': nc_id,
+        #            'cart': cart ,
+        #            'dishes':dishes}
+        #
+        # return render(request, 'polls/cart-table.html', context)
+
 
     return render(request, 'polls/nc-page.html', context)
 
@@ -82,7 +124,7 @@ def checkout(request):
             for item, hmm in cart.items():
                 if not isinstance(hmm, dict):
                     continue
-                
+
                 if hmm['NC_ID'] == nc_id:
                     total += cart[item]['price'] * cart[item]['quantity']
                     cart_items[item] = cart[item]
@@ -109,11 +151,11 @@ def checkout(request):
 
                 if (len(str(phno)) != 10) or (len(str(gpay_phno)) != 10):
                     messages.error(request, "Please enter valid 10-digit phone numbers!")
-                    
+
                     for item, hmm in cart.items():
                         if not isinstance(hmm, dict):
                             continue
-                
+
                         if hmm['NC_ID'] == nc_id:
                             cart_items[item] = cart[item]
 
@@ -122,7 +164,7 @@ def checkout(request):
                         'cart_items': cart_items }
 
                     return render(request, 'polls/checkout.html', context)
-                    
+
                 Item_name = []
                 Price = []
                 Quantity = []

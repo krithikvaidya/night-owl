@@ -20,6 +20,7 @@
   <!-- Optional JS Stuff -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
 
 
 <script>
@@ -28,9 +29,6 @@
     document.querySelector("#add_or_remove"+ box_id).style.display="inline-block";
     document.querySelector("#quantity" + box_id).innerHTML=1;
     document.querySelector("#cart_form_type2"+box_id).style.display="none";
-    html_code=document.querySelector(".cart_content").innerHTML;
-    extra_html='<div class="cart_row cart_row' + box_id +'"><div class="cart_left"><div class="cart_dish_name">'+ item_name +'</div><div class="cart_quantity"><span id="cart_quantity'+box_id+'">1</span> Nos.</div></div><div class="cart_right">Rs ' + item_price +'</div></div>';
-    document.querySelector(".cart_content").innerHTML=html_code+ extra_html;
   }
 
     /* for incrementing/decrementing item quantity */
@@ -39,7 +37,6 @@
     var value = parseInt(document.querySelector('#quantity'+box_id).innerText);
     value++;
     document.querySelector('#quantity'+box_id).innerText = value;
-    document.querySelector("#cart_quantity"+box_id).innerText=value;
   }
 
   function decreaseValue(box_id) {
@@ -49,11 +46,9 @@
       {
          document.querySelector("#add_or_remove"+ box_id).style.display="none";
          document.querySelector("#cart_form_type2"+box_id).style.display="block";
-         document.querySelector(".cart_row"+box_id).style.display="none";
       }
     else{
         document.querySelector('#quantity'+box_id).innerText = value;
-        document.querySelector("#cart_quantity"+box_id).innerText=value;
     }
   }
 
@@ -81,12 +76,6 @@
               document.querySelector(".ext"+ b+" "+"      .down").style.display="none";
             }
    }
-  function remove(item_id){
-    document.getElementById("add_or_remove"+item_id).innerText="Add";
-    document.getElementById("add_or_remove"+item_id).style.color="Green";
-    document.getElementById("add_or_remove"+item_id).style.borderColor="Green";
-    document.querySelector(".cart_row" + item_id).outerHTML="";
-  }
 
   $(function() {
     $(".cart_form, .cart_form_type2").submit(function(event) {
@@ -97,6 +86,9 @@
         var posting = $.post( friendForm.attr('action'), friendForm.serialize() );
         // if success:
         posting.done(function(data) {
+
+            $('.cart-table').html(data);
+
             // success actions, maybe change submit button to 'friend added' or whatever
         });
         // if failure:
@@ -149,7 +141,7 @@
           {%sort_by_filter dishes as groupedbyfilters%}
           {%for bar in groupedbyfilters%}
           <div class="FilterName">
-              {{bar.0.filter.name}}
+              {{bar.0.get_filter_display}}
               <span class="menuExtension ext{{forloop.counter}}"><button class="up" onclick="removeElement(1,'{{forloop.counter}}')"><i class="fa fa-chevron-up"></i></button>
               <button class="down" onclick="removeElement(0,'{{forloop.counter}}')">
               <i class="fa fa-chevron-down" ></i></button>
@@ -201,7 +193,6 @@
                   display: none;
                 {%endif%}"
                 >
-
                   {% csrf_token %}
                     <input type="hidden" id="item_id" name="item_id" value="{{ item.id }}">
                     <input type="hidden" id="add" name="add" value="True">
@@ -217,32 +208,8 @@
       <div style="font-size:16px;background-color: green;color: white;padding:7px;height: 40px;">
           <center>Cart</center>
       </div>
-      <div class="cart_content">
-        {%if cart.items|length > 2 %}
-          {% for item in cart.items%}
-              {% if item.1.NC_ID == nc_id %}
-                <div class="cart_row cart_row{{item.0}}">
-                  <div class="cart_left">
-                    <div class="cart_dish_name">
-                    {{item.1.name}}
-                    </div>
-                    <div class="cart_quantity"><span id="cart_quantity{{item.0}}">{{item.1.quantity}}</span> Nos.</div>
-                  </div>
-                  <div class="cart_right">Rs {{item.1.price}}</div>
-                </div>
-              {% endif %}
-          {% endfor %}
-        </div>
-          <div class="submit_button">
-            <form action="{% url 'polls:NC Checkout' %}" method="post">
-              {% csrf_token %}
-                <input type="hidden" id="nc_id" name="nc_id" value="{{ nc_id }}">
-                <input type="submit" class="btn btn-primary" style="margin-top: 5px;" value="Checkout">
-            </form>
-          </div>
-        {%else%}
-         <div id="empty_cart"><center><i class="fa fa-shopping-cart" style="font-size:30px;"></i></center><br>Cart is empty</div>
-        {%endif%}
+      <div class="cart-table">
+        {%include 'polls/cart-table.html'%}
       </div>
     </div>
     <div id="cart_box_link" style="width:100%;padding:10px 5%;;background-color:white;position: fixed;bottom:0px;z-index:3;">

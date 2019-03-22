@@ -15,9 +15,10 @@ class NC1Products(models.Model):
     #item id of each item in the menu will be its primary key
     name = models.CharField(max_length=200)
     price = models.IntegerField()
-    filter=models.ForeignKey(NC1Filters ,on_delete=models.CASCADE)
     veg=models.BooleanField(default=True)
     currently_present=models.BooleanField()
+    MY_CHOICES = ((1,'Hot and Cold Beverages'),(2,'Dosa Items'))
+    filter = models.IntegerField(choices=MY_CHOICES)
 
     class Meta(object):
         verbose_name_plural = 'Menu items of Block 3 Night Canteen'
@@ -44,6 +45,13 @@ class PaidOrdersNC1(models.Model):  # each object of this model represents a suc
 
 class NC2Filters(models.Model):
     name= models.CharField(max_length=100)
+    #item id of each item in the menu will be its primary key
+    name = models.CharField(max_length=200)
+    price = models.IntegerField()
+    veg=models.BooleanField(default=True)
+    currently_present=models.BooleanField()
+    MY_CHOICES = ((1,'Hot and Cold Beverages'),(2,'Dosa Items'))
+    filter = models.IntegerField(choices=MY_CHOICES)
 
     class Meta(object):
         verbose_name_plural = 'Categories for Block 7 Night Canteen'
@@ -59,6 +67,8 @@ class NC2Products(models.Model):
     filter=models.ForeignKey(NC2Filters ,on_delete=models.CASCADE)
     veg=models.BooleanField(default=True)
     currently_present=models.BooleanField()
+    MY_CHOICES = ((1,'Hot and Cold Beverages'),(2,'Dosa Items'))
+    filter = models.IntegerField(choices=MY_CHOICES)
 
     class Meta(object):
         verbose_name_plural = 'Menu items of Block 7 Night Canteen'
