@@ -135,7 +135,9 @@
   {% endfor %}
 </ul>
 {% endif %}
+{{cart.items}}
 <div class="row row_content">
+
     <div class="content col-sm-12 col-md-8">
     <input id="searchbar" type="text" class="search" placeholder="Search here" oninput="search_bar(this.value)">
           {%sort_by_filter dishes as groupedbyfilters%}

@@ -69,48 +69,6 @@ def nc_page(request, nc_id):
                'cart': cart ,
                'dishes':dishes}
 
-    # if request.is_ajax():
-        # item_id = request.POST.get("item_id")
-        # qty = request.POST.get("qty")
-        # add = request.POST.get("add")
-        #
-        # if(nc_id==1):
-        #     product = NC1Products.objects.get(pk=item_id)
-        # elif(nc_id==2):
-        #     product = NC2Products.objects.get(pk=item_id)
-        # else:
-        #     product = NC3Products.objects.get(pk=item_id)
-        #
-        # itemID = str(item_id)
-        #
-        # if (itemID not in cart) and (add == "True"):
-        #     cart[itemID] = {
-        #                     'NC_ID': nc_id,
-        #                     'name': product.name,
-        #                     'price': product.price,
-        #                     'quantity': 1,
-        #                    }
-        #
-        # elif (itemID not in cart) and (add == "False"):
-        #     messages.error(request, 'This item does not exist in your cart.')
-        #
-        # elif (itemID in cart) and (add == "True"):
-        #     cart[itemID]['quantity'] += 1
-        #
-        # elif  (itemID in cart) and (add == "False"):
-        #     if cart[itemID]['quantity'] == 1:
-        #         cart.pop(itemID)
-        #     else:
-        #         cart[itemID]['quantity'] -= 1
-        # request.session['cart'] = cart
-        #
-        # context = {'nc_id': nc_id,
-        #            'cart': cart ,
-        #            'dishes':dishes}
-        #
-        # return render(request, 'polls/cart-table.html', context)
-
-
     return render(request, 'polls/nc-page.html', context)
 
 def checkout(request):
