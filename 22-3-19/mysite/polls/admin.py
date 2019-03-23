@@ -22,16 +22,25 @@ class NC3ProductsAdmin(admin.ModelAdmin):
 
 @admin.register(PaidOrdersNC1)
 class PaidOrdersNC1Admin(admin.ModelAdmin):
-    list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
+    list_display = ['order_number', 'ph_no', 'gpay_ph_no', 'block']
     list_filter = ['filters']
+
+    def order_number(self, obj):
+        return 'Order number - ' + str(obj.pk)
 
 
 @admin.register(PaidOrdersNC2)
 class PaidOrdersNC2Admin(admin.ModelAdmin):
-    list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
+    list_display = ['order_number', 'ph_no', 'gpay_ph_no', 'block']
     list_filter = ['filters']
+
+    def order_number(self, obj):
+        return 'Order number - ' + str(obj.pk)
 
 @admin.register(PaidOrdersNC3)
 class PaidOrdersNC3Admin(admin.ModelAdmin):
-    list_display = ['item_name', 'price', 'gpay_ph_no', 'block']
+    list_display = ['order_number', 'ph_no', 'gpay_ph_no', 'block']
     list_filter = ['filters']
+
+    def order_number(self, obj):
+        return 'Order number - ' + str(obj.pk)
