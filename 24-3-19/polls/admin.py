@@ -1,7 +1,7 @@
 from django.contrib import admin
 from polls.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
 
-# Register your models here.
+
 @admin.register(NC1Products)
 class NC1ProductsAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'currently_present']
@@ -23,16 +23,15 @@ class NC3ProductsAdmin(admin.ModelAdmin):
 @admin.register(PaidOrdersNC1)
 class PaidOrdersNC1Admin(admin.ModelAdmin):
     list_display = ['order_number', 'ph_no', 'gpay_ph_no', 'block']
-    list_filter = ['filters']
-
+    list_filter = ['order_status']
+    
     def order_number(self, obj):
         return 'Order number - ' + str(obj.pk)
-
 
 @admin.register(PaidOrdersNC2)
 class PaidOrdersNC2Admin(admin.ModelAdmin):
     list_display = ['order_number', 'ph_no', 'gpay_ph_no', 'block']
-    list_filter = ['filters']
+    list_filter = ['order_status']
 
     def order_number(self, obj):
         return 'Order number - ' + str(obj.pk)
@@ -40,7 +39,7 @@ class PaidOrdersNC2Admin(admin.ModelAdmin):
 @admin.register(PaidOrdersNC3)
 class PaidOrdersNC3Admin(admin.ModelAdmin):
     list_display = ['order_number', 'ph_no', 'gpay_ph_no', 'block']
-    list_filter = ['filters']
+    list_filter = ['order_status']
 
     def order_number(self, obj):
         return 'Order number - ' + str(obj.pk)

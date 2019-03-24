@@ -130,32 +130,21 @@ def checkout(request):
 
                     return render(request, 'polls/checkout.html', context)
 
-                Item_name = []
-                Price = []
-                Quantity = []
+                order_details = ""
 
                 for item in cart:
                     if not isinstance(cart[item], dict):
                         continue
                     if cart[item]['NC_ID'] == nc_id:
-                        Item_name.append(cart[item]['name'])
-                        Price.append(str(cart[item]['price']))
-                        Quantity.append(str(cart[item]['quantity']))
+                        order_details += cart[item]['name'] + ' - ' + str(cart[item]['quantity']) + ' - Rs. ' + str(cart[item]['price'] * cart[item]['quantity']) + '\n'
 
-                str_item_name = '\n'
-                str_price = '\n'
-                str_quantity = '\n'
-
-                str_item_name = str_item_name.join(Item_name)
-                str_price = str_price.join(Price)
-                str_quantity = str_quantity.join(Quantity)
 
                 if nc_id == 1:
-                    PaidOrdersNC1.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
+                    PaidOrdersNC1.objects.create(order_details=order_details, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
                 elif nc_id == 2:
-                    PaidOrdersNC2.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
+                    PaidOrdersNC2.objects.create(order_details=order_details, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
                 elif nc_id == 3:
-                    PaidOrdersNC3.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
+                    PaidOrdersNC3.objects.create(order_details=order_details, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
 
                 request.session.flush()  # clears the cart after order has been placed.
                 return render(request, 'polls/success.html', {'time': datetime.datetime.now()})
