@@ -1,0 +1,30 @@
+* 
+{
+    box-sizing: border-box;
+}
+
+/* Adding additional styles to bootstrap's jumbotron */
+.jumbotron 
+{ 
+    background-color: #f4511e; 
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+body 
+{
+    margin: 0; /* Removing the default margins for all body elements */
+    font-family: Arial, Helvetica, sans-serif; /* Specifying several fonts in case some of the fonts aren't available in the user's browser */
+}
+
+.float-right
+{
+    float: right;
+}
+
+.col-sm-6
+{
+    padding-top: 10px;
+    background-color: lightgrey;
+}
+

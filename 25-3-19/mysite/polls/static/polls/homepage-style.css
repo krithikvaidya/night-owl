@@ -1,0 +1,12 @@
+*
+{
+    box-sizing: border-box;
+}
+
+/* Adding additional styles to bootstrap's jumbotron */
+.jumbotron 
+{ 
+    background-color: #f4511e;
+    color: #ffffff;
+    margin-bottom: 0;
+}

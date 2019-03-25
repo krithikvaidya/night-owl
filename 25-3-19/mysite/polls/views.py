@@ -147,3 +147,4 @@ def checkout(request):
 
                 request.session.flush()  # clears the cart after order has been placed.
                 return render(request, 'polls/success.html', {'time': datetime.datetime.now()})
+ 
