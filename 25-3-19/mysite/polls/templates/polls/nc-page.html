@@ -6,7 +6,7 @@
 
 <head>
   <title>Canteen Name</title>
-
+  <link rel="shortcut icon" href="{%static 'polls/favicon.ico'%}" type="image/x-icon" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,7 +33,6 @@
 
     /* for incrementing/decrementing item quantity */
   function increaseValue(box_id) {
-    console.log(box_id);
     var value = parseInt(document.querySelector('#quantity'+box_id).innerText);
     value++;
     document.querySelector('#quantity'+box_id).innerText = value;
@@ -77,6 +76,7 @@
             }
    }
 
+<!-- Sends a POST request through AJAX when an item is added to cart(with jQuery) -->
   $(function() {
     $(".cart_form, .cart_form_type2").submit(function(event) {
         // Stop form from submitting normally
@@ -150,6 +150,7 @@
           </div>
           <div class="row row{{forloop.counter}}">
           {%for item in bar|sort_by_price %}
+          {%if item.currently_present%}
           <div class="col-sm-12 col-md-6 item_outerbox">
             <div class="item_box" id="item_box{{item.id}}">
               {%if item.veg == True%}
@@ -201,6 +202,7 @@
                 </form>
             </div>
           </div>
+          {%endif%}
         {%endfor%}
         </div>
         {%endfor%}

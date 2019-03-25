@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41e5d2f6-c522-4936-be24-5cc8023c88fc" name="Default Changelist" comment="" />
+    <list default="true" id="41e5d2f6-c522-4936-be24-5cc8023c88fc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/static/polls/fifth.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/static/polls/seventh.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/polls/static/polls/seventh.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/templates/polls/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/polls/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/templates/polls/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/polls/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/templates/polls/nc-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/polls/nc-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/templates/polls/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/polls/success.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,15 +31,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/polls/templates/polls/nc-page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="165" column="58" selection-start-line="165" selection-start-column="58" selection-end-line="165" selection-end-column="58" />
+            <state relative-caret-position="1885">
+              <caret line="166" column="51" selection-start-line="166" selection-start-column="51" selection-end-line="166" selection-end-column="51" />
               <folding>
-                <element signature="e#4373#4379#0" expanded="true" />
-                <element signature="e#4379#4385#0" expanded="true" />
-                <element signature="e#4385#4391#0" expanded="true" />
-                <element signature="e#4391#4397#0" expanded="true" />
-                <element signature="e#4397#4403#0" expanded="true" />
+                <element signature="e#6281#6287#0" expanded="true" />
+                <element signature="e#6287#6293#0" expanded="true" />
+                <element signature="e#6293#6299#0" expanded="true" />
+                <element signature="e#6299#6305#0" expanded="true" />
+                <element signature="e#6305#6311#0" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/polls/templates/polls/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="32" column="68" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -38,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/polls/static/polls/checkout-style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2223">
-              <caret line="117" selection-start-line="117" selection-end-line="117" />
+            <state relative-caret-position="570">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
@@ -47,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/polls/static/polls/main-style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6783">
-              <caret line="357" selection-start-line="357" selection-end-line="357" />
+            <state relative-caret-position="4370">
+              <caret line="230" selection-start-line="230" selection-end-line="230" />
             </state>
           </provider>
         </entry>
@@ -64,6 +83,9 @@
       </file>
     </leaf>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -71,20 +93,23 @@
         <option value="$PROJECT_DIR$/polls/static/polls/checkout-style.css" />
         <option value="$PROJECT_DIR$/polls/static/polls/main-style.css" />
         <option value="$PROJECT_DIR$/polls/templates/polls/nc-page.html" />
+        <option value="$PROJECT_DIR$/polls/templates/polls/index.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-30" />
     <option name="y" value="222" />
     <option name="width" value="1944" />
     <option name="height" value="1044" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,7 +139,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -146,8 +170,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -159,8 +182,8 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.59680283" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3285968" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.23445825" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3285968" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -178,15 +201,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/polls/static/polls/checkout-style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2223">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
+        <state relative-caret-position="570">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/polls/static/polls/main-style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6783">
-          <caret line="357" selection-start-line="357" selection-end-line="357" />
+        <state relative-caret-position="4370">
+          <caret line="230" selection-start-line="230" selection-end-line="230" />
         </state>
       </provider>
     </entry>
@@ -197,16 +220,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/polls/templates/polls/nc-page.html">
+    <entry file="file://$PROJECT_DIR$/polls/templates/polls/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
-          <caret line="165" column="58" selection-start-line="165" selection-start-column="58" selection-end-line="165" selection-end-column="58" />
+          <caret line="32" column="68" selection-start-line="32" selection-start-column="68" selection-end-line="32" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/polls/templates/polls/nc-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1885">
+          <caret line="166" column="51" selection-start-line="166" selection-start-column="51" selection-end-line="166" selection-end-column="51" />
           <folding>
-            <element signature="e#4373#4379#0" expanded="true" />
-            <element signature="e#4379#4385#0" expanded="true" />
-            <element signature="e#4385#4391#0" expanded="true" />
-            <element signature="e#4391#4397#0" expanded="true" />
-            <element signature="e#4397#4403#0" expanded="true" />
+            <element signature="e#6281#6287#0" expanded="true" />
+            <element signature="e#6287#6293#0" expanded="true" />
+            <element signature="e#6293#6299#0" expanded="true" />
+            <element signature="e#6299#6305#0" expanded="true" />
+            <element signature="e#6305#6311#0" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
