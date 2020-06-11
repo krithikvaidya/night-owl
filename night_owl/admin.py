@@ -1,5 +1,15 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.contrib import admin
-from night_owl.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from night_owl.models import User, NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
+
+class UserAdmin(BaseUserAdmin):
+
+    list_display = ('username', 'first_name', 'last_name', 'ph_no', 'gpay_ph_no')
+
+admin.site.register(User, UserAdmin)
 
 # Register your models here.
 @admin.register(NC1Products)

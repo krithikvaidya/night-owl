@@ -9,20 +9,19 @@ from night_owl.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC
 from .forms import CheckoutForm
 
 def home(request):
-
     return render(request, "night_owl/index.html")
 
 def nc_page(request, nc_id):
     cart = request.session.get('cart',{})
 
     if(nc_id==1):
-        dishes=NC1Products.objects.all()
+        dishes=NC1Products.objects.raw('SELECT * FROM night_owl_nc1products')
 
     elif(nc_id==2):
-        dishes=NC2Products.objects.all()
+        dishes=NC2Products.objects.raw('SELECT * FROM night_owl_nc2products')
 
     else:
-        dishes=NC3Products.objects.all()
+        dishes=NC3Products.objects.raw('SELECT * FROM night_owl_nc3products')
 
     if request.method == "POST":
         item_id = request.POST.get("item_id")
@@ -30,11 +29,14 @@ def nc_page(request, nc_id):
         add = request.POST.get("add")
 
         if(nc_id==1):
-            product = NC1Products.objects.get(pk=item_id)
+            query_str = 'SELECT * FROM night_owl_nc1products WHERE id=' + str(item_id) + ';'
+            product = NC1Products.objects.raw(query_str)[0]
         elif(nc_id==2):
-            product = NC2Products.objects.get(pk=item_id)
+            query_str = 'SELECT * FROM night_owl_nc2products WHERE id=' + str(item_id) + ';'
+            product = NC2Products.objects.raw(query_str)[0]
         else:
-            product = NC3Products.objects.get(pk=item_id)
+            query_str = 'SELECT * FROM night_owl_nc3products WHERE id=' + str(item_id) + ';'
+            product = NC3Products.objects.raw(query_str)[0]
 
         itemID = str(item_id)
 
@@ -86,11 +88,11 @@ def checkout(request):
 
             total = 0
 
-            for item, hmm in cart.items():
-                if not isinstance(hmm, dict):
+            for item, temp in cart.items():
+                if not isinstance(temp, dict):
                     continue
 
-                if hmm['NC_ID'] == nc_id:
+                if temp['NC_ID'] == nc_id:
                     total += cart[item]['price'] * cart[item]['quantity']
                     cart_items[item] = cart[item]
 
@@ -118,11 +120,11 @@ def checkout(request):
                 if (len(str(phno)) != 10) or (len(str(gpay_phno)) != 10):
                     messages.error(request, "Please enter valid 10-digit phone numbers!")
 
-                    for item, hmm in cart.items():
-                        if not isinstance(hmm, dict):
+                    for item, temp in cart.items():
+                        if not isinstance(temp, dict):
                             continue
 
-                        if hmm['NC_ID'] == nc_id:
+                        if temp['NC_ID'] == nc_id:
                             cart_items[item] = cart[item]
 
                     context = { 'cart': cart,
