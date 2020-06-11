@@ -197,3 +197,24 @@ def checkout(request):
 
                 request.session.flush()  # clears the cart after order has been placed.
                 return render(request, 'night_owl/success.html', {'time': datetime.datetime.now()})
+
+
+def view_orders (request):
+
+    if not (request.is_authenticated and request.user.is_staff):
+        return HttpResponse("You don't have access to this")
+
+    nc_id = 0
+
+    if request.user.username == 'nc1admin':
+        nc_id = 1
+    if request.user.username == 'nc2admin':
+        nc_id = 2
+    if request.user.username == 'nc3admin':
+        nc_id = 3
+
+    
+    for ob in PaidOrdersNC1.objects.all():
+        
+
+    return HttpResponse("You don't have access to this")
