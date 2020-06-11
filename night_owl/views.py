@@ -4,47 +4,49 @@ from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
 import datetime
+from django.db import connection
 
 from night_owl.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
 from .forms import CheckoutForm
 
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
 def home(request):
+
     return render(request, "night_owl/index.html")
 
 def nc_page(request, nc_id):
     cart = request.session.get('cart',{})
 
-    if(nc_id==1):
-        dishes=NC1Products.objects.raw('SELECT * FROM night_owl_nc1products')
+    # MySQL
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM night_owl_nc%sproducts", [nc_id])
+        dishes = dictfetchall(cursor)
 
-    elif(nc_id==2):
-        dishes=NC2Products.objects.raw('SELECT * FROM night_owl_nc2products')
-
-    else:
-        dishes=NC3Products.objects.raw('SELECT * FROM night_owl_nc3products')
 
     if request.method == "POST":
         item_id = request.POST.get("item_id")
         qty = request.POST.get("qty")
         add = request.POST.get("add")
 
-        if(nc_id==1):
-            query_str = 'SELECT * FROM night_owl_nc1products WHERE id=' + str(item_id) + ';'
-            product = NC1Products.objects.raw(query_str)[0]
-        elif(nc_id==2):
-            query_str = 'SELECT * FROM night_owl_nc2products WHERE id=' + str(item_id) + ';'
-            product = NC2Products.objects.raw(query_str)[0]
-        else:
-            query_str = 'SELECT * FROM night_owl_nc3products WHERE id=' + str(item_id) + ';'
-            product = NC3Products.objects.raw(query_str)[0]
+        # MySQL
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM night_owl_nc%sproducts WHERE id=%s", [nc_id, item_id])
+            product = dictfetchall(cursor)[0]
 
         itemID = str(item_id)
 
         if (itemID not in cart) and (add == "True"):
             cart[itemID] = {
                             'NC_ID': nc_id,
-                            'name': product.name,
-                            'price': product.price,
+                            'name': product['name'],
+                            'price': product['price'],
                             'quantity': 1,
                            }
 
@@ -153,12 +155,21 @@ def checkout(request):
                 str_price = str_price.join(Price)
                 str_quantity = str_quantity.join(Quantity)
 
-                if nc_id == 1:
-                    PaidOrdersNC1.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
-                elif nc_id == 2:
-                    PaidOrdersNC2.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
-                elif nc_id == 3:
-                    PaidOrdersNC3.objects.create(item_name=str_item_name, price=str_price, quantity=str_quantity, ph_no=phno, block=block, gpay_ph_no=gpay_phno, order_comments=order_comments)
+                filters = 'a'
+                
+                # MySQL
+                with connection.cursor() as cursor:
+                    cursor.execute('''
+
+                        INSERT INTO night_owl_paidordersnc%s (item_name, price, quantity, ph_no, block, gpay_ph_no, order_comments, filters)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+
+                        ''',  [nc_id, str_item_name, str_price, str_quantity, phno, block, gpay_phno, order_comments, filters]
+                    )
+                    
+                    # rows_affected = cursor.rowcount
+                    # if rows_affected == 0:
+                    #     return render(request, 'night_owl/failure.html', {'time': datetime.datetime.now()})
 
                 request.session.flush()  # clears the cart after order has been placed.
                 return render(request, 'night_owl/success.html', {'time': datetime.datetime.now()})

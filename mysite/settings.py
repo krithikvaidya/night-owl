@@ -138,13 +138,11 @@ STATIC_URL = '/static/'
 
 # SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
 CART_SESSION_ID = 'cart'
 
 SESSION_SAVE_EVERY_REQUEST = True
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -177,7 +177,7 @@ class PaidOrdersNC2(models.Model):  # each object of this model represents a suc
     item_name = models.TextField()
     price = models.TextField()
     quantity = models.TextField()
-    MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    MY_CHOICES = [('a','Pending'),('b','Delivered'),('c','Rejected')]
     filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
@@ -209,7 +209,7 @@ class PaidOrdersNC3(models.Model):  # each object of this model represents a suc
     item_name = models.TextField()
     price = models.TextField()
     quantity = models.TextField()
-    MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    MY_CHOICES = [ ('a', 'Pending'),('b', 'Delivered'),('c', 'Rejected') ]
     filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
