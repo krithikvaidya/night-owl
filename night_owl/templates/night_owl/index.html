@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Night Owl</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="{%static 'night_owl/homepage-style.css'%}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
+        <a class="navbar-brand" href="{% url 'night_owl:Home' %}">Night Owl</a>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid text-center">  <!-- BootStrap's jumbotron class for big titles-->
+        <div class="container">
+            <h1>Night Owl</h1> 
+            <p>The NITK Night Canteen App</p> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4" style="margin-top: 20px;  margin-bottom: 10px; text-align: center;">
+            <div class="card" style="width: 80%; display: inline-block">
+                <img class="card-img-top" src="{%static 'night_owl/fifth.jpg'%}" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h2 class="card-title">3<sup>rd</sup> Block</h2>
+                    <p class="card-text">Jumadi Hospitality Pvt. Ltd.</p>
+                    <a href="{% url 'night_owl:NC Page' nc_id=1 %}" class="btn btn-primary">Go to Order Page</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="margin-top: 20px;  margin-bottom: 10px; text-align: center;">
+            <div class="card" style="width: 80%; display: inline-block;">
+                <img class="card-img-top" src="{%static 'night_owl/seventh.jpg'%}" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h2 class="card-title">7<sup>th</sup> Block</h2>
+                    <p class="card-text">Sai Hospitality Services</p>
+                    <a href="{% url 'night_owl:NC Page' nc_id=2 %}" class="btn btn-primary">Go to Order Page</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="margin-top: 20px; margin-bottom: 10px; text-align: center;">
+            <div class="card" style="width: 80%; display: inline-block">
+                <img class="card-img-top" src="{%static 'night_owl/girls.jpg'%}" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h2 class="card-title">Girl's Block</h2>
+                    <p class="card-text">The Sanoor Night Canteen</p>
+                    <a href="{% url 'night_owl:NC Page' nc_id=3 %}" class="btn btn-primary">Go to Order Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+
