@@ -17,9 +17,21 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
-        <a class="navbar-brand" href="{% url 'night_owl:Home' %}">Night Owl</a>
-    </nav>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> 
+    <a class="navbar-brand" href="{% url 'night_owl:Home' %}">Night Owl</a>
+
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav ml-auto" style="color: white;">
+        <span>{{ user }}</span>
+        <span><a href="/accounts/logout/" style="color: white; margin-left: 5px;">Logout</a></span>
+    </ul>
+    {% else %}
+    <ul class="navbar-nav ml-auto">
+        <a href="/accounts/login/" style="color: white;">Login</a>
+    </ul>
+    {% endif %}
+
+</nav>
 
     <div class="jumbotron jumbotron-fluid text-center">  <!-- BootStrap's jumbotron class for big titles-->
         <div class="container">

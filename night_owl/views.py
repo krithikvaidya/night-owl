@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
 import datetime
-from django.db import connection
+from django.db import connection, transaction
 
 from night_owl.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC1, PaidOrdersNC2, PaidOrdersNC3
 from .forms import CheckoutForm
@@ -135,41 +135,65 @@ def checkout(request):
 
                     return render(request, 'night_owl/checkout.html', context)
 
+                Item_id = []
                 Item_name = []
                 Price = []
                 Quantity = []
 
                 for item in cart:
+
                     if not isinstance(cart[item], dict):
                         continue
+
                     if cart[item]['NC_ID'] == nc_id:
+                        
+                        Item_id.append(int(item))
                         Item_name.append(cart[item]['name'])
-                        Price.append(str(cart[item]['price']))
-                        Quantity.append(str(cart[item]['quantity']))
+                        Price.append(int(cart[item]['price']))
+                        Quantity.append(int(cart[item]['quantity']))
 
-                str_item_name = '\n'
-                str_price = '\n'
-                str_quantity = '\n'
-
-                str_item_name = str_item_name.join(Item_name)
-                str_price = str_price.join(Price)
-                str_quantity = str_quantity.join(Quantity)
-
+                user_id = request.user.id
                 filters = 'a'
-                
+
                 # MySQL
-                with connection.cursor() as cursor:
-                    cursor.execute('''
+                # Wrapping the transaction in try/catch block to perform action in case 
+                # of failure at any point
+                try:
 
-                        INSERT INTO night_owl_paidordersnc%s (item_name, price, quantity, ph_no, block, gpay_ph_no, order_comments, filters)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+                    with transaction.atomic():  # Django's encapsulation of a MySQL transaction.
 
-                        ''',  [nc_id, str_item_name, str_price, str_quantity, phno, block, gpay_phno, order_comments, filters]
-                    )
+                        with connection.cursor() as cursor:
+
+                            cursor.execute('''
+
+                                INSERT INTO night_owl_paidordersnc%s (user_id, ph_no, block, gpay_ph_no, order_comments, filters)
+                                VALUES (%s, %s, %s, %s, %s, %s);
+
+                                ''',  [nc_id, user_id, phno, block, gpay_phno, order_comments, filters]
+                            )
+                            
+                            cursor.execute('''
+
+                                SELECT LAST_INSERT_ID();
+
+                                '''
+                            )
+
+                            order_id = cursor.fetchone()[0]
+                            
+                            for i in range (len (Item_name)):
+
+                                cursor.execute('''
+
+                                    INSERT INTO night_owl_nc%sorderdetails (order_id, product_id, quantity, total_price)
+                                    VALUES (%s, %s, %s, %s);
+
+                                    ''',  [nc_id, order_id, Item_id[i], Quantity[i], (Quantity[i] * Price[i])]
+                                )
+
+                except Exception as e:
+                    return render(request, 'night_owl/failure.html', {'e': e})
                     
-                    # rows_affected = cursor.rowcount
-                    # if rows_affected == 0:
-                    #     return render(request, 'night_owl/failure.html', {'time': datetime.datetime.now()})
 
                 request.session.flush()  # clears the cart after order has been placed.
                 return render(request, 'night_owl/success.html', {'time': datetime.datetime.now()})

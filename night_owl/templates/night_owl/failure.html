@@ -34,13 +34,13 @@
 
     <div class="jumbotron jumbotron-fluid text-center">  <!-- BootStrap's jumbotron class for big titles-->
         <div class="container">
-            <h1>Order Confirmation</h1>
+            <h1>Order Failure</h1>
         </div>
     </div>
     
     <div style="text-align: center; margin-top: 20px;">
-        <h3>Your order was placed successfully.</h3>
-        <h5>Time of Order Placement: {{ time | time}}</h5>
+        <h3>Your order could not be placed.</h3>
+        <h5>{{ e }}</h5>
         <a href="{% url 'night_owl:Home' %}" class="btn btn-success" style="margin-top: 10px;">Back to Home Page</a>
     </div>
 
