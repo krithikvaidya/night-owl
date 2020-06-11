@@ -25,7 +25,7 @@ class PaidOrdersNC1(models.Model):  # each object of this model represents a suc
     price = models.TextField()
     quantity = models.TextField()
     MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
-    filters = models.CharField(choices=MY_CHOICES, default='a', max_length=1)
+    filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
         verbose_name_plural = 'List of orders created - Block 3 Night Canteen'
@@ -59,7 +59,7 @@ class PaidOrdersNC2(models.Model):  # each object of this model represents a suc
     price = models.TextField()
     quantity = models.TextField()
     MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
-    filters = models.CharField(choices=MY_CHOICES, default='a', max_length=1)
+    filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
         verbose_name_plural = 'List of orders created - Block 7 Night Canteen'
@@ -91,7 +91,7 @@ class PaidOrdersNC3(models.Model):  # each object of this model represents a suc
     price = models.TextField()
     quantity = models.TextField()
     MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
-    filters = models.CharField(choices=MY_CHOICES, default='a', max_length=1)
+    filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
         verbose_name_plural = 'List of orders created - Girl\'s Block Night Canteen'

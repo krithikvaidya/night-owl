@@ -9,6 +9,7 @@ from night_owl.models import NC1Products, NC2Products, NC3Products, PaidOrdersNC
 from .forms import CheckoutForm
 
 def home(request):
+
     return render(request, "night_owl/index.html")
 
 def nc_page(request, nc_id):

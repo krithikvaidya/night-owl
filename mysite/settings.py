@@ -82,7 +82,7 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': '/etc/mysql/my.cnf',
         },
-    }
+    },
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
