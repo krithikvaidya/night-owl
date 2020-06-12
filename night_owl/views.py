@@ -170,13 +170,8 @@ def checkout(request):
                                 str_order_details += str(Item_name[i]) + '  -  ' + str(Quantity[i]) + '  - Rs.  ' + str(Price[i]) + '\n'
                                 
 
-                            cursor.execute('''
-
-                                INSERT INTO night_owl_paidordersnc%s (user_id, ph_no, block, gpay_ph_no, order_comments, order_details, filters)
-                                VALUES (%s, %s, %s, %s, %s, %s, %s);
-
-                                ''',  [nc_id, user_id, phno, block, gpay_phno, order_comments, str_order_details, filters]
-                            )
+                            cursor.callproc ('CreatePaidOrder', [nc_id, user_id, phno, block, gpay_phno, order_comments, str_order_details, filters])
+                            
                             
                             cursor.execute('''
 
@@ -301,12 +296,30 @@ def edit_menu (request):
 
         cursor.execute('''
 
-            SELECT * FROM night_owl_nc%sorderdetails WHERE order_id=%s;
+            SELECT * FROM night_owl_nc%sproducts;
 
-            ''',  [nc_id, request.order_id]
+            ''',  [nc_id]
         )
 
         data = dictfetchall(cursor)
 
+        if request.action == 'delete':
+            cursor.execute('''
 
-    return render(request, 'night_owl/order_details_page.html', data)
+                DELETE FROM night_owl_nc%sproducts WHERE id=%s;
+
+                ''',  [nc_id, request.item_id]
+            )
+
+        elif request.action == 'update':
+            cursor.execute('''
+
+                UPDATE night_owl_nc%sproducts 
+                SET name=%s, price=%s, veg=%s, currently_present=%s, filter=%s 
+                WHERE id=%s;
+
+                ''',  [nc_id, request.name, request.price, request.currently_present, request.filter, request.item_id]
+            )
+
+
+    return render(request, 'night_owl/edit_menu_page.html', data)

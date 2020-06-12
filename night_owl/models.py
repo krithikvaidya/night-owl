@@ -12,7 +12,7 @@ class NC1Products(models.Model):
     #item id of each item in the menu will be its primary key
     name = models.CharField(max_length=200)
     price = models.IntegerField()
-    veg=models.BooleanField(default=True)
+    veg=models.BooleanField()
     currently_present=models.BooleanField()
     MY_CHOICES = ((1,'Hot and Cold Beverages'),(2,'Dosa Items'), (3, 'Sandwiches Bar'))
     filter = models.IntegerField(choices=MY_CHOICES)
@@ -54,7 +54,7 @@ class NC2Products(models.Model):
     #item id of each item in the menu will be its primary key
     name = models.CharField(max_length=200)
     price = models.IntegerField()
-    veg=models.BooleanField(default=True)
+    veg=models.BooleanField()
     currently_present=models.BooleanField()
     MY_CHOICES = ((1,'Hot and Cold Beverages'),(2,'Dosa Items'), (3, 'Sandwiches Bar'))
     filter = models.IntegerField(choices=MY_CHOICES)
@@ -95,7 +95,7 @@ class NC3Products(models.Model):
     #item id of each item in the menu will be its primary key
     name = models.CharField(max_length=200)
     price = models.IntegerField()
-    veg=models.BooleanField(default=True)
+    veg=models.BooleanField()
     currently_present=models.BooleanField()
     MY_CHOICES = ((1,'Noodle Items'),(2,'Rice Items'))
     filter = models.IntegerField(choices=MY_CHOICES)
