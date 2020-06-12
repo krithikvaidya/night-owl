@@ -8,11 +8,6 @@ class NC1ProductsAdmin(admin.ModelAdmin):
     list_filter = ['currently_present','filter']
     search_fields = ['name']
 
-    def changelist_view(self, request, extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['some_var'] = 'This is what I want to show'
-        return super(NC1ProductsAdmin, self).changelist_view(request, extra_context=extra_context)
-
 @admin.register(NC2Products)
 class NC2ProductsAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'currently_present']

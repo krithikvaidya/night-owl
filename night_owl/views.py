@@ -164,12 +164,18 @@ def checkout(request):
 
                         with connection.cursor() as cursor:
 
+                            str_order_details = "Item Name - Quantity - Price Per Item\n\n"
+
+                            for i in range (len(Item_name)):
+                                str_order_details += str(Item_name[i]) + '  -  ' + str(Quantity[i]) + '  - Rs.  ' + str(Price[i]) + '\n'
+                                
+
                             cursor.execute('''
 
-                                INSERT INTO night_owl_paidordersnc%s (user_id, ph_no, block, gpay_ph_no, order_comments, filters)
-                                VALUES (%s, %s, %s, %s, %s, %s);
+                                INSERT INTO night_owl_paidordersnc%s (user_id, ph_no, block, gpay_ph_no, order_comments, order_details, filters)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s);
 
-                                ''',  [nc_id, user_id, phno, block, gpay_phno, order_comments, filters]
+                                ''',  [nc_id, user_id, phno, block, gpay_phno, order_comments, str_order_details, filters]
                             )
                             
                             cursor.execute('''
@@ -201,6 +207,7 @@ def checkout(request):
 
 def view_orders (request):
 
+    # Display all the
     if not (request.is_authenticated and request.user.is_staff):
         return HttpResponse("You don't have access to this")
 
@@ -213,8 +220,93 @@ def view_orders (request):
     if request.user.username == 'nc3admin':
         nc_id = 3
 
-    
-    for ob in PaidOrdersNC1.objects.all():
-        
+    # if the staff has selected a order status filter to apply
+    if request.filters:
 
-    return HttpResponse("You don't have access to this")
+        with connection.cursor() as cursor:
+
+            cursor.execute('''
+
+                SELECT * FROM night_owl_paidordersnc%s WHERE filters=%s;
+
+                ''',  [nc_id, request.filters]
+            )
+
+            data = dictfetchall(cursor)
+    
+    # without filters
+    else:
+
+        with connection.cursor() as cursor:
+
+            cursor.execute('''
+
+                SELECT * FROM night_owl_paidordersnc%s;
+
+                ''',  [nc_id]
+            
+            )
+
+            data = dictfetchall(cursor)
+
+    return render(request, 'night_owl/staff_page.html', data)
+
+
+def view_order_details (request):
+
+    # Display all the
+    if not (request.is_authenticated and request.user.is_staff):
+        return HttpResponse("You don't have access to this")
+
+    nc_id = 0
+
+    if request.user.username == 'nc1admin':
+        nc_id = 1
+    if request.user.username == 'nc2admin':
+        nc_id = 2
+    if request.user.username == 'nc3admin':
+        nc_id = 3
+
+    with connection.cursor() as cursor:
+
+        cursor.execute('''
+
+            SELECT * FROM night_owl_nc%sorderdetails WHERE order_id=%s;
+
+            ''',  [nc_id, request.order_id]
+        )
+
+        data = dictfetchall(cursor)
+
+
+    return render(request, 'night_owl/order_details_page.html', data)
+
+
+def edit_menu (request):
+
+    # Display all the
+    if not (request.is_authenticated and request.user.is_staff):
+        return HttpResponse("You don't have access to this")
+
+    nc_id = 0
+
+    if request.user.username == 'nc1admin':
+        nc_id = 1
+    if request.user.username == 'nc2admin':
+        nc_id = 2
+    if request.user.username == 'nc3admin':
+        nc_id = 3
+
+    with connection.cursor() as cursor:
+
+        cursor.execute('''
+
+            SELECT * FROM night_owl_nc%sorderdetails WHERE order_id=%s;
+
+            ''',  [nc_id, request.order_id]
+        )
+
+        data = dictfetchall(cursor)
+
+
+    return render(request, 'night_owl/order_details_page.html', data)

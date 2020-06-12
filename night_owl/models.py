@@ -31,6 +31,7 @@ class PaidOrdersNC1(models.Model):  # each object of this model represents a suc
     block = models.CharField(max_length=15)
     order_comments = models.TextField(null=True, blank=True)
     MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    order_details = models.TextField()
     filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
@@ -72,6 +73,7 @@ class PaidOrdersNC2(models.Model):  # each object of this model represents a suc
     block = models.CharField(max_length=15)
     order_comments = models.TextField(null=True, blank=True)
     MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    order_details = models.TextField()
     filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
@@ -111,6 +113,7 @@ class PaidOrdersNC3(models.Model):  # each object of this model represents a suc
     block = models.CharField(max_length=15)
     order_comments = models.TextField(null=True, blank=True)
     MY_CHOICES = (('a','Pending'),('b','Delivered'),('c','Rejected'))
+    order_details = models.TextField()
     filters = models.CharField(choices=MY_CHOICES, default='a', max_length=10)
 
     class Meta(object):
