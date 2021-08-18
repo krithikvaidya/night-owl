@@ -1,4 +1,5 @@
-This is a project made for Database Systems course. 
+A model responsive web-app written using the Django framework, for ordering food items from the college's Night Canteens. Includes the
+customer's interface as well as order management for the Night Canteen owners. Uses a MySQL database backend.
 
 ## To run:  
 
